@@ -226,7 +226,7 @@ df5=df4[(df4[today_con_name]>200)&(df4.Investment<=8000)]
 # In[59]:
 
 
-df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>100000)&(df4.CLOSE_PRICE>4)&(df4[today_con_name]>50)].reset_index(drop=True)
+df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>100000)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
 
 
 # In[60]:
