@@ -31,8 +31,12 @@ contr=st.text_input('Minumum contracts')
 
 if close_price:
     close_price=int(close_price)
+else:
+    close_price=4
 if contr:
     contr=int(contr)
+else:
+    contr=50
 
 
 # In[36]:
