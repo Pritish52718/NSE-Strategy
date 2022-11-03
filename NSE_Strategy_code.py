@@ -18,7 +18,7 @@ today='op03112022'
 yesterday='op02112022'
 daybefore='op01112022'
 expiry='24/11/2022'
-INSTRUMENT='OPTIDX' #'OPTSTK' and 'OPTIDX'
+INSTRUMENT=st.radio('Select Index option or Stock options',("OPTIDX","OPTSTK"))
 
 
 # In[35]:
