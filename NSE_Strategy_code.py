@@ -19,7 +19,7 @@ yesterday='op02112022'
 daybefore='op01112022'
 expiry='24/11/2022'
 
-col1,col2,col3,col4=st.columns([2,2,2,2])
+col1,col2,col3,col4=st.columns([1.5,1.5,1.5,1.5])
 
 INSTRUMENT=col1.radio('Select Index option or Stock options',("OPTIDX","OPTSTK"))
 
