@@ -256,7 +256,7 @@ df11=pd.concat([df_ce1, df_pe1], ignore_index=True, axis=0)
 
 style.highlight_max(axis=0)
 df11=df11[['SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE',
-       'OPEN_PRICE', 'HI_PRICE', 'LO_PRICE', 'CLOSE_PRICE', 'OPEN_INT*','MTM SETTLEMENT PRICE', 'Lot_size', 'Investment']])
+       'OPEN_PRICE', 'HI_PRICE', 'LO_PRICE', 'CLOSE_PRICE', 'OPEN_INT*','MTM SETTLEMENT PRICE', 'Lot_size', 'Investment']]
 
 st.dataframe(df11)
 
