@@ -26,8 +26,13 @@ INSTRUMENT='OPTIDX' #'OPTSTK' and 'OPTIDX'
 
 min_inv=int(st.radio('Enter minimum Investments',(100,3000,5000,10000)))
 max_inv=int(st.radio('Enter maximum Investments',(3000,5000,10000)))
-close_price=int(st.text_input('Minumum price'))
-contr=int(st.text_input('Minumum contracts'))
+close_price=st.text_input('Minumum price')
+contr=st.text_input('Minumum contracts')
+
+if close_price:
+    close_price=int(close_price)
+if contr:
+    contr=int(contr)
 
 
 # In[36]:
