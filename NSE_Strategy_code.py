@@ -50,10 +50,7 @@ Data_names.remove(today+'.csv')
 # In[38]:
 
 
-Data_names
 
-
-# In[39]:
 
 
 lot_size=pd.read_csv('fo_mktlots.csv')
@@ -107,7 +104,7 @@ for i in Data_names:
     df1.rename(columns={'NO_OF_CONT':'Contracts'+'_'+i[2:6]},inplace=True)
     df=pd.merge(df,df1,on=['INSTRUMENT', 'SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE'],how='left')
     drop_y(df,i)
-    print(i)
+    #print(i)
 
 mtm=pd.read_csv('FOSett_prce_'+today[2:]+'.csv')
 mtm=mtm[mtm.INSTRUMENT=="OPTSTK"]
@@ -118,7 +115,7 @@ df=df.fillna(0)
 # In[43]:
 
 
-df.columns
+#df.columns
 
 
 # In[44]:
@@ -156,7 +153,7 @@ else:
 # In[48]:
 
 
-OI
+#OI
 
 
 # In[49]:
@@ -179,7 +176,7 @@ yest_OI_name="OPEN_INT*_"+yesterday[2:6]
 # In[51]:
 
 
-df4.columns
+#df4.columns
 
 
 # In[52]:
@@ -204,7 +201,7 @@ df4['Investment']=df4['HI_PRICE']*df4['Lot_size']
 # In[55]:
 
 
-df4
+#df4
 
 
 # In[56]:
@@ -249,7 +246,7 @@ df11=pd.concat([df_ce1, df_pe1], ignore_index=True, axis=0)
 # In[65]:
 
 
-df4[['SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE',
+df11[['SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE',
        'OPEN_PRICE', 'HI_PRICE', 'LO_PRICE', 'CLOSE_PRICE', 'OPEN_INT*','MTM SETTLEMENT PRICE', 'Lot_size', 'Investment']]
 
 
