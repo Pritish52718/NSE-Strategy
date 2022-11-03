@@ -29,8 +29,10 @@ INSTRUMENT=col1.radio('Select Index option or Stock options',("OPTIDX","OPTSTK")
 
 min_inv=int(col2.radio('Enter minimum Investments',(100,3000,5000,10000)))
 max_inv=int(col3.radio('Enter maximum Investments',(3000,5000,10000)))
-close_price=st.text_input('Minumum price')
-contr=st.text_input('Minumum contracts')
+
+col1,buff,col2=st.columns([3,0.5,3])
+close_price=col1.text_input('Minumum price')
+contr=col2.text_input('Minumum contracts')
 
 if close_price:
     close_price=int(close_price)
