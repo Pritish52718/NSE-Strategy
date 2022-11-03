@@ -8,6 +8,8 @@ import pandas as pd
 import streamlit as st
 import os
 
+st.set_page_config(layout="wide")
+
 
 # In[34]:
 
@@ -22,10 +24,10 @@ INSTRUMENT='OPTIDX' #'OPTSTK' and 'OPTIDX'
 # In[35]:
 
 
-min_inv=3000
-max_inv=10000
-close_price=4
-contr=50
+min_inv=int(st.radio('Enter minimum Investments',(100,3000,5000,10000)))
+max_inv=int(st.radio('Enter maximum Investments',(3000,5000,10000)))
+close_price=int(st.text_input('Minumum price'))
+contr=int(st.text_input('Minumum contracts'))
 
 
 # In[36]:
