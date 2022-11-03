@@ -19,7 +19,7 @@ yesterday='op02112022'
 daybefore='op01112022'
 expiry='24/11/2022'
 
-col1,col2,col3=st.columns([2,2,2])
+col1,col2,col3,col4=st.columns([2,2,2,2])
 
 INSTRUMENT=col1.radio('Select Index option or Stock options',("OPTIDX","OPTSTK"))
 
@@ -31,17 +31,16 @@ min_inv=int(col2.radio('Enter minimum Investments',(100,3000,5000,10000)))
 max_inv=int(col3.radio('Enter maximum Investments',(3000,5000,10000)))
 
 col1,buff,col2=st.columns([3,0.5,3])
-close_price=col1.text_input('Minumum price')
-contr=col2.text_input('Minumum contracts')
+close_price=col1.text_input('Minumum price',4)
+contr=col2.text_input('Minumum contracts',200)
+op_int=col3.text_input('Minimum OPEN INTEREST',100000)
 
 if close_price:
     close_price=int(close_price)
-else:
-    close_price=4
 if contr:
     contr=int(contr)
-else:
-    contr=50
+if op_int:
+    op_int=int(op_int)
 
 
 # In[36]:
@@ -235,7 +234,7 @@ df5=df4[(df4[today_con_name]>200)&(df4.Investment<=8000)]
 # In[59]:
 
 
-df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>100000)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
+df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
 
 
 # In[60]:
