@@ -19,7 +19,7 @@ yesterday='op02112022'
 daybefore='op01112022'
 expiry='24/11/2022'
 
-col1,col2,col3,col4=st.columns([1.5,1.5,1.5,1.5])
+col1,col2,col3=st.columns([2,2,2)
 
 INSTRUMENT=col1.radio('Select Index option or Stock options',("OPTIDX","OPTSTK"))
 
@@ -30,10 +30,10 @@ INSTRUMENT=col1.radio('Select Index option or Stock options',("OPTIDX","OPTSTK")
 min_inv=int(col2.radio('Enter minimum Investments',(100,3000,5000,10000)))
 max_inv=int(col3.radio('Enter maximum Investments',(3000,5000,10000)))
 
-col1,buff,col2=st.columns([3,0.5,3])
+col1,buff,col2=st.columns([2,2,2])
 close_price=col1.text_input('Minumum price',4)
 contr=col2.text_input('Minumum contracts',200)
-op_int=col3.text_input('Minimum OPEN INTEREST',100000)
+op_int=buff.text_input('Minimum OPEN INTEREST',100000)
 
 if close_price:
     close_price=int(close_price)
