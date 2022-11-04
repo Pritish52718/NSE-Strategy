@@ -6,6 +6,7 @@
 import pandas as pd
 import streamlit as st
 import os
+import NSE
 
 st.set_page_config(layout="wide")
 with st.sidebar.header('Choose your input type'):
