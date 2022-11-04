@@ -8,7 +8,9 @@ import streamlit as st
 import os
 
 st.set_page_config(layout="wide")
-
+with st.sidebar.header('Choose your input type'):
+        check_type = st.sidebar.selectbox('Select your input type here:',('NSE_stocks','NSE_filter'))
+nse_start(check_type)
 
 
 
