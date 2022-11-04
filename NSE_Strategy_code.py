@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-$pip install nsepy
+
 
 import pandas as pd
 import streamlit as st
 import os
-import NSE
+
 
 st.set_page_config(layout="wide")
-with st.sidebar.header('Choose your input type'):
-        check_type = st.sidebar.selectbox('Select your input type here:',('NSE_stocks','NSE_filter'))
-NSE.nse_start(check_type)
+
 
 
 
