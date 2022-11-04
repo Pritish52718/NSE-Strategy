@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-!pip install nsepy
+$pip install nsepy
 
 import pandas as pd
 import streamlit as st
