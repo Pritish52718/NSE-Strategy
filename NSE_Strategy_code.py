@@ -145,6 +145,9 @@ elif (op_int) and (not close_price) and (not contr):
     op_int=int(op_int)
     df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)].reset_index(drop=True)
 elif (op_int) and (close_price) and (contr):
+    close_price=int(close_price)
+    contr=int(contr)
+    op_int=int(op_int)
     df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
 else:
     df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)].reset_index(drop=True)
