@@ -31,12 +31,7 @@ close_price=col1.text_input('Minumum price',4)
 contr=col2.text_input('Minumum contracts',200)
 op_int=buff.text_input('Minimum OPEN INTEREST',100000)
 
-if close_price:
-    close_price=int(close_price)
-if contr:
-    contr=int(contr)
-if op_int:
-    op_int=int(op_int)
+
 
 
 
@@ -140,8 +135,23 @@ df4.Lot_size=df4.Lot_size.astype(int)
 
 df4['Investment']=df4['HI_PRICE']*df4['Lot_size']
 
+if (close_price) and (not contr) and (not op_int):
+    close_price=int(close_price)
+    df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4.CLOSE_PRICE>close_price)].reset_index(drop=True)
+elif (contr) and (not close_price) and (not op_int):
+    contr=int(contr)
+    df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4[today_con_name]>contr)].reset_index(drop=True)
+elif (op_int) and (not close_price) and (not contr):
+    op_int=int(op_int)
+    df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)].reset_index(drop=True)
+elif (op_int) and (close_price) and (contr):
+    df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
+else:
+    df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)].reset_index(drop=True)
+    
+    
 
-df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
+#df10=df4[(df4.Investment>min_inv)&(df4.Investment<=max_inv)&(df4['OPEN_INT*']>op_int)&(df4.CLOSE_PRICE>close_price)&(df4[today_con_name]>contr)].reset_index(drop=True)
 
 df_ce1=df10[df10.OPT_TYPE=='CE'].drop_duplicates(subset=['SYMBOL','OPT_TYPE'],keep='first',ignore_index=True)
 df_pe1=df10[df10.OPT_TYPE=='PE'].drop_duplicates(subset=['SYMBOL','OPT_TYPE'],keep='last',ignore_index=True)
