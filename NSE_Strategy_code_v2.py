@@ -76,10 +76,10 @@ logger.setLevel(logging.INFO)
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
 @st.cache
 def downld_data(d_path,e_path):
-    for file in os.scandir(d_path):
+    for file in os.listdir(d_path):
         print(file)
         os.remove(file.path)
-    for file in os.scandir(e_path):
+    for file in os.listdir(e_path):
         print(file)
         os.remove(file.path)
     global No_of_download,Working_day,Non_Work_day
