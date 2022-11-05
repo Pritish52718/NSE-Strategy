@@ -23,8 +23,8 @@ st.set_page_config(layout="wide")
 
 Start_date=""
 End_date=""
-d_path=r"Data"
-e_path=r"Other_Data"
+d_path="Data"
+e_path="Other_Data"
 
 
 # In[68]:
