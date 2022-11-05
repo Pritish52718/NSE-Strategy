@@ -6,6 +6,10 @@
 import pandas as pd
 import streamlit as st
 import os
+from jugaad_data.nse import bhavcopy_fo_save
+from datetime import datetime,date
+
+bhavcopy_fo_save(date(2022,10,20),'Data')
 
 
 st.set_page_config(layout="wide")
