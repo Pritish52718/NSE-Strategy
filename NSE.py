@@ -1,5 +1,3 @@
-pip install nsepy
-import nsepy
 import streamlit as st
 import pandas as pd
 from datetime import date
