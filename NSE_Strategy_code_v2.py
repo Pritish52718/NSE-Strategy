@@ -28,8 +28,8 @@ nthu = datetime.today()
 while (nthu + relativedelta(weekday=TH(2))).month == datetime.today().month:
     nthu += relativedelta(weekday=TH(2))
 
-d_path="Data"
-e_path="Other_Data"
+d_path=r"Data"
+e_path=r"Other_Data"
 
 
 # In[68]:
@@ -56,7 +56,7 @@ def req(zip_file_url,path):
         No_of_download=No_of_download+1
         logger.info("File Available.Downloading")
         z = zipfile.ZipFile(io.BytesIO(r.content))
-        z.extractall(path=path)
+        z.extractall(path=path+"/")
     else:
         logger.info("******File Not Available.Moving to next date.")
     return status_code
