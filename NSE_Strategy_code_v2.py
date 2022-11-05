@@ -192,12 +192,12 @@ if check_type=='NSE_stocks':
     expiry=datetime.strptime(expiry, '%d/%m/%Y').strftime("%d-%b-%Y")
     df=get_df(filename,expiry,INSTRUMENT)
     for i in Data_names:
-    df1=get_df(i,expiry,INSTRUMENT)
-    #df1.rename(columns={'NO_OF_CONT':'Contracts'+'_'+i[2:7]},inplace=True)
-    #df=pd.merge(df,df1,on=['INSTRUMENT', 'SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE'],how='left')
-    #drop_y(df,i)
-    #print(i)
-    df=pd.concat([df,df1],ignore_index=True,axis=0)
+        df1=get_df(i,expiry,INSTRUMENT)
+        #df1.rename(columns={'NO_OF_CONT':'Contracts'+'_'+i[2:7]},inplace=True)
+        #df=pd.merge(df,df1,on=['INSTRUMENT', 'SYMBOL', 'EXP_DATE', 'STR_PRICE', 'OPT_TYPE'],how='left')
+        #drop_y(df,i)
+        #print(i)
+        df=pd.concat([df,df1],ignore_index=True,axis=0)
 
     if option and strike_price and option_type and expiry:
         df1=df[(df.SYMBOL==option)and(df.STRIKE_PR==strike_price)and(df.OPTION_TYP=option_type)and(df.EXPIRY_DT==expiry)]
@@ -226,10 +226,10 @@ elif check_type=='NSE_filter':
     df.drop(['TIMESTAMP'], axis=1,inplace=True)
     
     for i in Data_names:
-    df1=get_df(i,expiry,INSTRUMENT)
-    df1.rename(columns={'CONTRACTS':'Contracts'+'_'+i[2:7]},inplace=True)
-    df=pd.merge(df,df1,on=['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP'],how='left')
-    drop_y(df,i)
+        df1=get_df(i,expiry,INSTRUMENT)
+        df1.rename(columns={'CONTRACTS':'Contracts'+'_'+i[2:7]},inplace=True)
+        df=pd.merge(df,df1,on=['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP'],how='left')
+        drop_y(df,i)
     #print(i)
     
     mtm=pd.read_csv(e_path+'/'+cm_filename)
