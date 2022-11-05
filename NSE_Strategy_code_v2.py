@@ -56,7 +56,7 @@ def req(zip_file_url,path):
         No_of_download=No_of_download+1
         logger.info("File Available.Downloading")
         z = zipfile.ZipFile(io.BytesIO(r.content))
-        z.extractall(path=path+"/")
+        z.extractall(path=path)
     else:
         logger.info("******File Not Available.Moving to next date.")
     return status_code
@@ -76,9 +76,11 @@ logger.setLevel(logging.INFO)
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
 @st.cache
 def downld_data(d_path,e_path):
-    for file in os.scandir(d_path+"/"):
+    for file in os.scandir(d_path):
+        print(file)
         os.remove(file.path)
-    for file in os.scandir(e_path+"/"):
+    for file in os.scandir(e_path):
+        print(file)
         os.remove(file.path)
     global No_of_download,Working_day,Non_Work_day
     No_of_download=0
