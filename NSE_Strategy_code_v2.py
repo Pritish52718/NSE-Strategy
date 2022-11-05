@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[65]:
-
-
 import pandas as pd
 import streamlit as st
 import requests, zipfile, io,logging
@@ -15,9 +12,9 @@ from datetime import datetime,timedelta
 # In[104]:
 
 
-expiry='24/11/2022'
-expiry=datetime.strptime(expiry, '%d/%m/%Y').strftime("%d-%b-%Y")
-INSTRUMENT='OPTSTK'
+#expiry='24/11/2022'
+#expiry=datetime.strptime(expiry, '%d/%m/%Y').strftime("%d-%b-%Y")
+#INSTRUMENT='OPTSTK'
 
 
 # In[67]:
@@ -31,9 +28,10 @@ e_path=r"Other_Data"
 
 # In[68]:
 
-
-shutil.rmtree('Data')
-shutil.rmtree('Other_Data')
+for file in os.scandir(d_path):
+    os.remove(file.path)
+for file in os.scandir(e_path):
+    os.remove(file.path)
 
 
 # In[70]:
@@ -123,7 +121,7 @@ logging.shutdown()
 # In[73]:
 
 
-Data_names=os.listdir('Data')
+Data_names=os.listdir(d_path)
 Data_names.remove(filename)
 
 
@@ -140,7 +138,7 @@ lot_size = lot_size.applymap(lambda x: x.strip() if type(x)==str else x)
 
 
 def get_df(name,expiry,INSTRUMENT):
-    df = pd.read_csv('Data/'+name)
+    df = pd.read_csv(d_path+'/'+name)
     df.columns = df.columns.str.strip()
     df = df.applymap(lambda x: x.strip() if type(x)==str else x)
     df = df[df.INSTRUMENT==INSTRUMENT]
