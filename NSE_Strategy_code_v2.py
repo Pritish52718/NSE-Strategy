@@ -8,6 +8,7 @@ import shutil
 import os
 from datetime import datetime,timedelta
 
+st.set_page_config(layout="wide")
 
 # In[104]:
 
