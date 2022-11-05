@@ -79,11 +79,11 @@ def downld_data(d_path,e_path):
     for file in os.listdir(d_path):
         print(file)
         path = os.path.join(d_path+'/', file)
-        os.remove(file.path)
+        os.remove(path)
     for file in os.listdir(e_path):
         print(file)
         path = os.path.join(e_path+'/', file)
-        os.remove(file.path)
+        os.remove(path)
     global No_of_download,Working_day,Non_Work_day
     No_of_download=0
     Working_day=0
