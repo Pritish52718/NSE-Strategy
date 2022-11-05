@@ -123,6 +123,8 @@ logging.shutdown()
 
 
 Data_names=os.listdir(d_path)
+Data_name
+d_path
 Data_names.remove(filename)
 
 
