@@ -200,7 +200,7 @@ if check_type=='NSE_stocks':
         df=pd.concat([df,df1],ignore_index=True,axis=0)
 
     if option and strike_price and option_type and expiry:
-        df1=df[(df.SYMBOL==option)and(df.STRIKE_PR==strike_price)and(df.OPTION_TYP=option_type)and(df.EXPIRY_DT==expiry)]
+        df1=df[(df.SYMBOL==option)and(df.STRIKE_PR==strike_price)and(df.OPTION_TYP==option_type)and(df.EXPIRY_DT==expiry)]
         st.dataframe(df.style.highlight_min(axis=0))
     else:
         st.subheader('Please enter all inputs')
