@@ -271,9 +271,10 @@ if check_type=='NSE_stocks':
         df1.TIMESTAMP=pd.to_datetime(df1.TIMESTAMP)
         df1=df1.sort_values("TIMESTAMP",ascending=False).reset_index(drop=True)
         df1.drop("INSTRUMENT", axis=1, inplace=True)
-        st.dataframe(df1.style.set_precision(2))
-#         print(df1.style.apply(lambda x: ['highlight_min: lightblue' if x.name == 'LOW'
-#                           else '' for i in x]))
+        dfx=df1.style.highlight_max(axis=0, props='background-color:lightgreen', subset=['HIGH']).highlight_min(axis=0, color="pink",subset=['LOW'])
+        
+        st.dataframe(dfx.style.set_precision(2))
+         
 
     else:
         st.subheader('Please enter all inputs')
