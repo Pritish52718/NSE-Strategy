@@ -8,7 +8,6 @@ import shutil
 import os
 from datetime import datetime,date,timedelta
 
-from git import rmtree #new
 st.set_page_config(layout="wide")
 
 # In[104]:
@@ -76,17 +75,10 @@ logger.setLevel(logging.INFO)
 
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
 @st.cache
-def downld_data(d_path,e_path):
-    #rmtree('./Data')
-    
+def downld_data(d_path,e_path):    
     for file in os.listdir(d_path):
-        print(file)
-        #
         path = os.path.join('Data'+'/', file)
-        os.remove(path)
-        git commit -m"Delete Data"
-        git push
-        
+        os.remove(path)        
     for file in os.listdir(e_path):
         print(file)
         path = os.path.join(e_path+'/', file)
