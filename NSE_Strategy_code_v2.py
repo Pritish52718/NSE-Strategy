@@ -79,7 +79,7 @@ logger.setLevel(logging.INFO)
 def downld_data(d_path,e_path):
     for file in os.listdir(d_path):
         print(file)
-        rmtree('./Data/'+file)
+        rmtree('Data/'+file)
         #path = os.path.join('./Data'+'/', file)
         #os.remove(path)
     for file in os.listdir(e_path):
