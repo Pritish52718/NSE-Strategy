@@ -83,10 +83,10 @@ def downld_data(d_path,e_path):
         print(file)
         #
         path = os.path.join('Data'+'/', file)
-        git rm path
+        os.remove(path)
         git commit -m"Delete Data"
         git push
-        #os.remove(path)
+        
     for file in os.listdir(e_path):
         print(file)
         path = os.path.join(e_path+'/', file)
