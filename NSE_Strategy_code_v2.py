@@ -77,7 +77,7 @@ logger.setLevel(logging.INFO)
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
 @st.cache
 def downld_data(d_path,e_path):
-    rmtree('./Data)
+    rmtree('./Data')
     for file in os.listdir(d_path):
         print(file)
         #
