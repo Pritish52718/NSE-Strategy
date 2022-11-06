@@ -296,7 +296,7 @@ elif check_type=='NSE_filter':
     close_price=col1.text_input('Minumum price',4)
     contr=col2.text_input('Minumum contracts',200)
     op_int=buff.text_input('Minimum OPEN INTEREST',100000)
-    expiry=col4.date_input("Enter expiry date",nthu)
+    expiry=col3.date_input("Enter expiry date",nthu)
     expiry=expiry.strftime("%d-%b-%Y")
 
 
