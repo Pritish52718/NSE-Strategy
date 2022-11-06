@@ -231,6 +231,12 @@ lot_size['JAN-23']=lot_size['JAN-23'].astype(int)
 #df_nf,df_ns,lot_size=read_data(filename,Data_names,lot_size)
 
 mtm=mtm[mtm.SERIES=='EQ']
+
+exten=lis[-3:][2].strftime('%d%b').upper()
+
+df_nf=df_nf.rename(columns={'CLOSE_'+exten:'CLOSE'})
+df_ns=df_ns.rename(columns={'CLOSE_'+exten:'CLOSE'})
+
 df_nf=pd.merge(df_nf,mtm[['SYMBOL','CLOSE']],on="SYMBOL",how="left")
 df_nf.rename(columns={"CLOSE_y":"EQ_price","CLOSE_x":"CLOSE"},inplace=True)
 
@@ -317,7 +323,7 @@ elif check_type=='NSE_filter':
     yest_con_name="CONTRACTS_"+lis[-3:][1].strftime('%d%b').upper()
     daybef_con_name="CONTRACTS_"+lis[-3:][0].strftime('%d%b').upper()
     
-    exten=lis[-3:][2].strftime('%d%b').upper()
+    
 
     #df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW"})
     df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
