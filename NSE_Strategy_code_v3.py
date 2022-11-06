@@ -57,7 +57,7 @@ def rename_x(df,filename):
         if col.endswith('_x'):
             df.rename(columns={col:col.rstrip('_x')}, inplace=True)
         elif col.endswith('_y'):
-            df.rename(columns={col:col.rstrip('_y')+'_'+filename[2:7]},inplace=True)
+            df.rename(columns={col:col.rstrip('_y')+'_'+filename},inplace=True)
 
 
 
@@ -161,11 +161,12 @@ def downld_data():
 
                 else:
 
-                    dfnf=pd.merge(dfnf,df,on=['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP'],how='left')
-                    drop_y(dfnf,filename)
+                    dfnf=pd.merge(df,dfnf,on=['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP'],how='left')
+                    ext=lis[-2].strftime('%d%b').upper()
+                    drop_y(dfnf,ext)
 
-    dfnf=dfnf.rename(columns={'LOW':'LOW_'+first_file[2:7],'CONTRACTS':'CONTRACTS_'+first_file[2:7],'OPEN':'OPEN_'+first_file[2:7],
-                             'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
+#     dfnf=dfnf.rename(columns={'LOW':'LOW_'+first_file[2:7],'CONTRACTS':'CONTRACTS_'+first_file[2:7],'OPEN':'OPEN_'+first_file[2:7],
+#                              'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
 
 
 
@@ -232,10 +233,7 @@ lot_size['JAN-23']=lot_size['JAN-23'].astype(int)
 
 mtm=mtm[mtm.SERIES=='EQ']
 
-exten=lis[-3:][2].strftime('%d%b').upper()
 
-df_nf=df_nf.rename(columns={'CLOSE_'+exten:'CLOSE'})
-df_ns=df_ns.rename(columns={'CLOSE_'+exten:'CLOSE'})
 
 df_nf=pd.merge(df_nf,mtm[['SYMBOL','CLOSE']],on="SYMBOL",how="left")
 df_nf.rename(columns={"CLOSE_y":"EQ_price","CLOSE_x":"CLOSE"},inplace=True)
@@ -319,15 +317,15 @@ elif check_type=='NSE_filter':
 
     
     
-    today_con_name="CONTRACTS_"+lis[-3:][2].strftime('%d%b').upper()
+    today_con_name="CONTRACTS"
     yest_con_name="CONTRACTS_"+lis[-3:][1].strftime('%d%b').upper()
     daybef_con_name="CONTRACTS_"+lis[-3:][0].strftime('%d%b').upper()
     
     
 
     #df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW"})
-    df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
-                                 'HIGH_'+exten:'HIGH','CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
+#     df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
+#                                  'HIGH_'+exten:'HIGH','CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
     
     
     
@@ -392,7 +390,7 @@ elif check_type=='NSE_filter':
 
     #style.highlight_max(axis=0)
     df11=df11[['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP',
-           'OPEN', 'HIGH', 'LOW', 'CLOSE', 'OPEN_INT','EQ_price', 'Lot_size', 'Investment']]
+           'OPEN', 'HIGH', 'LOW', 'CLOSE', 'OPEN_INT','CONTRACTS','EQ_price', 'Lot_size', 'Investment']]
 
     st.dataframe(df11.style.set_precision(2))
 
