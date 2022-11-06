@@ -8,6 +8,7 @@ import shutil
 import os
 from datetime import datetime,date,timedelta
 
+from git import rmtree #new
 st.set_page_config(layout="wide")
 
 # In[104]:
@@ -78,8 +79,9 @@ logger.setLevel(logging.INFO)
 def downld_data(d_path,e_path):
     for file in os.listdir(d_path):
         print(file)
-        path = os.path.join('./Data'+'/', file)
-        os.remove(path)
+        rmtree('./Data/'+file)
+        #path = os.path.join('./Data'+'/', file)
+        #os.remove(path)
     for file in os.listdir(e_path):
         print(file)
         path = os.path.join(e_path+'/', file)
