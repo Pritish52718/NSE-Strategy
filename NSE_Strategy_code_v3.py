@@ -48,6 +48,7 @@ def drop_y(df,filename):
     if "LOW_y" in to_drop:
         to_drop.remove("LOW_y")
         to_drop.remove('CONTRACTS_y')
+        to_drop.remove('OPEN_INT_y')
     if to_drop:
         df.drop(to_drop, axis=1, inplace=True)
         rename_x(df,filename)
@@ -163,13 +164,17 @@ def downld_data():
                     dfnf=pd.merge(dfnf,df,on=['SYMBOL', 'EXPIRY_DT', 'STRIKE_PR', 'OPTION_TYP'],how='left')
                     drop_y(dfnf,filename)
 
-    dfnf=dfnf.rename(columns={'LOW':'LOW_'+first_file[2:7],'CONTRACTS':'CONTRACTS_'+first_file[2:7]})
+    dfnf=dfnf.rename(columns={'LOW':'LOW_'+first_file[2:7],'CONTRACTS':'CONTRACTS_'+first_file[2:7],'OPEN':'OPEN_'+first_file[2:7],
+                             'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
 
 
-    if daterange[-1].weekday()==5:
-        new_date=daterange[-1]-timedelta(1)
-    elif daterange[-1].weekday()==6:
-        new_date=daterange[-1]-timedelta(2)
+
+    if lis[-1].weekday()==5:
+        new_date=lis[-1]-timedelta(1)
+    elif lis[-1].weekday()==6:
+        new_date=lis[-1]-timedelta(2)
+    else:
+        new_date=lis[-1]
     loop1_date=new_date.strftime("%Y-%b-%d")
     year,month,date=loop1_date.split('-')
     month=month.upper()
@@ -312,7 +317,14 @@ elif check_type=='NSE_filter':
     yest_con_name="CONTRACTS_"+lis[-3:][1].strftime('%d%b').upper()
     daybef_con_name="CONTRACTS_"+lis[-3:][0].strftime('%d%b').upper()
     
-    df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+lis[-3:][2].strftime('%d%b').upper():"LOW"})
+    exten=lis[-3:][2].strftime('%d%b').upper()
+
+    #df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW"})
+    df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
+                                 'HIGH_'+exten:'HIGH':,'CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
+    
+    
+    
     lows=df_nf.columns[df_nf.columns.str.contains('LOW')]
     contracts=df_nf.columns[df_nf.columns.str.contains('CONTRACTS')]
     OI=df_nf.columns[df_nf.columns.str.contains('OPEN_INT')]
