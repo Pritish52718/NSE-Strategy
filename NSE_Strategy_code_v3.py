@@ -321,7 +321,7 @@ elif check_type=='NSE_filter':
 
     #df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW"})
     df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
-                                 'HIGH_'+exten:'HIGH':,'CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
+                                 'HIGH_'+exten:'HIGH','CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
     
     
     
