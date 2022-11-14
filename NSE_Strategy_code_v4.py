@@ -143,10 +143,11 @@ def downld_data():
             Working_day=Working_day+1
             logger.info("Trying to download File of :"+loop_date)
             temp_zip_file_url = 'https://www1.nseindia.com/content/historical/DERIVATIVES/'+year+'/'+month+'/fo'+date+month+year+'bhav.csv.zip'
-            print(temp_zip_file_url)
+            st.write(temp_zip_file_url)
             #ls,df_ns,df_nf=req(temp_zip_file_url,df_ns,df_nf)
             r = requests.post(temp_zip_file_url)
             status_code=r.status_code
+            st.write(status_code)
             if status_code==200:
                 lis.append(single_date)
                 logger.info("File Available.Downloading")
