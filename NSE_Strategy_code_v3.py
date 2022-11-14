@@ -14,7 +14,7 @@ import shutil
 import copy
 import os
 from datetime import datetime,date,timedelta
-from streamlit.script_runner import RerunException
+from streamlit.ScriptRunner import RerunException
 
 from dateutil.relativedelta import relativedelta, TH
 
