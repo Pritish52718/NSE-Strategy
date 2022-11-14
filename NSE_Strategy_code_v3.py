@@ -169,7 +169,7 @@ def downld_data():
 #                              'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
 
 
-
+    print(lis)
     if lis[-1].weekday()==5:
         new_date=lis[-1]-timedelta(1)
     elif lis[-1].weekday()==6:
