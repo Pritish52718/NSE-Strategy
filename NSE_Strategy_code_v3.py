@@ -14,7 +14,7 @@ import shutil
 import copy
 import os
 from datetime import datetime,date,timedelta
-from streamlit.ScriptRunner import RerunException
+#from streamlit.ScriptRunner import RerunException
 
 from dateutil.relativedelta import relativedelta, TH
 
@@ -261,7 +261,7 @@ if check_type=='NSE_stocks':
     expiry=expiry.strftime("%d-%b-%Y")
     if col6.button('Reload Data'):
         st.experimental_memo.clear()
-        raise RerunException
+        st.experimental_rerun()
         
     df_ns=df_ns[df_ns.INSTRUMENT==INSTRUMENT]
     df_ns=df_ns[df_ns.EXPIRY_DT==expiry]
@@ -300,7 +300,7 @@ elif check_type=='NSE_filter':
     col1,col2,col3,col4,col5=st.columns([1.6,1.6,1.6,1.6,1.6])
     if col5.button('Reload Data'):
         st.experimental_memo.clear()
-        raise RerunException
+        st.experimental_rerun()
 
     INSTRUMENT=col1.radio('Select Stock option or Index option',("OPTSTK","OPTIDX"))
 
