@@ -14,6 +14,7 @@ import shutil
 import copy
 import os
 from datetime import datetime,date,timedelta
+from streamlit.script_runner import RerunException
 
 from dateutil.relativedelta import relativedelta, TH
 
@@ -110,7 +111,7 @@ logger.setLevel(logging.INFO)
 
 
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
-@st.cache
+@st.experimental_memo
 def downld_data():
     
     dfns=pd.DataFrame()
@@ -254,11 +255,14 @@ st.sidebar.write('Your selected input type:', check_type)
 
 
 if check_type=='NSE_stocks':
-    col1,col2,col3,col4,col5=st.columns([2,1.5,1.5,1.5,1.5])
+    col1,col2,col3,col4,col5,col6=st.columns([2,1.5,1,1,1,1.5])
     INSTRUMENT=col1.radio('Select Stock option or Index option',("OPTSTK","OPTIDX"))
     expiry=col5.date_input("Enter expiry date",nthu)
     expiry=expiry.strftime("%d-%b-%Y")
-
+    if col6.button('Reload Data'):
+        st.experimental_memo.clear()
+        raise RerunException
+        
     df_ns=df_ns[df_ns.INSTRUMENT==INSTRUMENT]
     df_ns=df_ns[df_ns.EXPIRY_DT==expiry]
 
@@ -293,7 +297,10 @@ if check_type=='NSE_stocks':
         
         
 elif check_type=='NSE_filter':
-    col1,col2,col3,col4=st.columns([2,2,2,2])
+    col1,col2,col3,col4,col5=st.columns([1.6,1.6,1.6,1.6,1.6])
+    if col5.button('Reload Data'):
+        st.experimental_memo.clear()
+        raise RerunException
 
     INSTRUMENT=col1.radio('Select Stock option or Index option',("OPTSTK","OPTIDX"))
 
