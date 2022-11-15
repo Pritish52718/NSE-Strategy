@@ -110,7 +110,7 @@ logger.setLevel(logging.INFO)
 
 
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
-@st.cache()
+@st.cache(ttl=18000)
 def downld_data():
     
     dfns=pd.DataFrame()
@@ -143,7 +143,7 @@ def downld_data():
             Working_day=Working_day+1
             logger.info("Trying to download File of :"+loop_date)
             temp_zip_file_url = 'https://www1.nseindia.com/content/historical/DERIVATIVES/'+year+'/'+month+'/fo'+date+month+year+'bhav.csv.zip'
-            print(temp_zip_file_url)
+            #print(temp_zip_file_url)
             #ls,df_ns,df_nf=req(temp_zip_file_url,df_ns,df_nf)
             r = requests.post(temp_zip_file_url)
             status_code=r.status_code
@@ -169,7 +169,7 @@ def downld_data():
 #                              'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
 
 
-    #print(lis)
+
     if lis[-1].weekday()==5:
         new_date=lis[-1]-timedelta(1)
     elif lis[-1].weekday()==6:
@@ -180,7 +180,9 @@ def downld_data():
     year,month,date=loop1_date.split('-')
     month=month.upper()
     temp_zip_file_url = 'https://www1.nseindia.com/content/historical/EQUITIES/'+year+'/'+month+'/cm'+date+month+year+'bhav.csv.zip'
+    logger.info(temp_zip_file_url)
     r = requests.post(temp_zip_file_url)
+    logger.info("File with status code: "+str(r.status_code))
     z = zipfile.ZipFile(io.BytesIO(r.content))
     mtm = pd.read_csv(z.open(z.namelist()[0]))
     
@@ -202,7 +204,7 @@ def downld_data():
 
 # In[ ]:
 
-
+    
 lis,dfns,dfnf,lot_size,mtm1=downld_data()
 df_nf=copy.deepcopy(dfnf)
 df_ns=copy.deepcopy(dfns)
@@ -219,7 +221,7 @@ for i in lot_size['JAN-23']:
         #print(i)
         lot_size.drop(lot_size[lot_size['JAN-23']==i].index, inplace = True)
 lot_size['JAN-23']=lot_size['JAN-23'].astype(int)
-   
+
 
 
 
@@ -251,13 +253,15 @@ st.sidebar.write('Your selected input type:', check_type)
 
 
 
-
+st.markdown("Data till: "+lis[-1].strftime("%d-%b-%Y"))
 if check_type=='NSE_stocks':
+    #st.markdown("Data till: "+lis[-1].strftime("%d-%b-%Y"))
     col1,col2,col3,col4,col5=st.columns([2,1.5,1.5,1.5,1.5])
     INSTRUMENT=col1.radio('Select Stock option or Index option',("OPTSTK","OPTIDX"))
+    
     expiry=col5.date_input("Enter expiry date",nthu)
     expiry=expiry.strftime("%d-%b-%Y")
-    
+
     df_ns=df_ns[df_ns.INSTRUMENT==INSTRUMENT]
     df_ns=df_ns[df_ns.EXPIRY_DT==expiry]
 
@@ -280,25 +284,27 @@ if check_type=='NSE_stocks':
         df1=df1.sort_values("TIMESTAMP",ascending=False).reset_index(drop=True)
         df1.drop("INSTRUMENT", axis=1, inplace=True)
         dfx=df1.style.highlight_max(axis=0, props='background-color:lightgreen', subset=['HIGH']).highlight_min(axis=0, color="pink",subset=['LOW']).set_precision(2)
-        
+
         st.dataframe(dfx)
-         
+
 
     else:
         st.subheader('Please enter all inputs')
-        
-        
-        
-        
+
+
+
+
 elif check_type=='NSE_filter':
     #st.session_state.co=co
+    #st.markdown("Data till: "+lis[-1].strftime("%d-%b-%Y"))
     col1,col2,col3,col4=st.columns([2,2,2,2])
+
 
     INSTRUMENT=col1.radio('Select Stock option or Index option',("OPTSTK","OPTIDX"))
 
     co=int(col4.radio('1-Day or 2-Days decreasing Contracts',(2,1),key='radio_option'))
     #st.write(st.session_state.radio_option)
-          
+
 
 
     min_inv=int(col2.radio('Enter minimum Investments',(1000,3000,5000,10000)))
@@ -316,20 +322,20 @@ elif check_type=='NSE_filter':
     df_nf=df_nf[df_nf.EXPIRY_DT==expiry]
 
 
-    
-    
+
+
     today_con_name="CONTRACTS"
     yest_con_name="CONTRACTS_"+lis[-3:][1].strftime('%d%b').upper()
     daybef_con_name="CONTRACTS_"+lis[-3:][0].strftime('%d%b').upper()
-    
-    
+
+
 
     #df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW"})
 #     df_nf=df_nf.rename(columns={today_con_name:"CONTRACTS",'LOW_'+exten:"LOW",'OPEN_'+exten:'OPEN',
 #                                  'HIGH_'+exten:'HIGH','CLOSE_'+exten:'CLOSE','OPEN_INT_'+exten:'OPEN_INT'})
-    
-    
-    
+
+
+
     lows=df_nf.columns[df_nf.columns.str.contains('LOW')]
     contracts=df_nf.columns[df_nf.columns.str.contains('CONTRACTS')]
     OI=df_nf.columns[df_nf.columns.str.contains('OPEN_INT')]
@@ -343,7 +349,7 @@ elif check_type=='NSE_filter':
     else:
         df2=df_nf
 
-    
+
 
     #print(yest_con_name)
     #Add butooon **************************************
@@ -397,5 +403,5 @@ elif check_type=='NSE_filter':
 
     reports_csv=df11.to_csv().encode('utf-8')
     st.download_button(label="Export Report",data=reports_csv,file_name='Report.csv',mime='text/csv')
-    # else:
-    #     st.subheader("Please click on 'Download Data'")
+# else:
+# st.subheader("Please click on 'Download Data'")
