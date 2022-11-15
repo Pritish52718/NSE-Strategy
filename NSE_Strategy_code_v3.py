@@ -110,7 +110,7 @@ logger.setLevel(logging.INFO)
 
 
 #Populating today's date as default, if the stat_date and/or End_date is not provided.
-@st.experimental_memo
+@st.cache
 def downld_data():
     
     dfns=pd.DataFrame()
@@ -169,7 +169,7 @@ def downld_data():
 #                              'HIGH':'HIGH_'+first_file[2:7],'CLOSE':'CLOSE_'+first_file[2:7],'OPEN_INT':'OPEN_INT_'+first_file[2:7]})
 
 
-    print(lis)
+    #print(lis)
     if lis[-1].weekday()==5:
         new_date=lis[-1]-timedelta(1)
     elif lis[-1].weekday()==6:
@@ -251,9 +251,9 @@ st.sidebar.write('Your selected input type:', check_type)
 
 
 ###changes start
-if st.button('Download latest Data'):
-        st.experimental_memo.clear()
-        st. experimental_rerun()
+# if st.button('Download latest Data'):
+#         st.experimental_memo.clear()
+#         st. experimental_rerun()
 
 if check_type=='NSE_stocks':
     col1,col2,col3,col4,col5=st.columns([2,1.5,1.5,1.5,1.5])
