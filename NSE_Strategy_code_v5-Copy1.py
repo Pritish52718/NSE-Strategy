@@ -195,7 +195,7 @@ elif check_type=='NSE_filter':
     #style.highlight_max(axis=0)
     df11=df10[['TIMESTAMP','SYMBOL','OPEN', 'HIGH', 'LOW', 'CLOSE','VOLUME']]
 
-    st.dataframe(df11.style.set_precision(2))
+    st.dataframe(df11)#.style.set_precision(2))
 
     reports_csv=df11.to_csv().encode('utf-8')
     st.download_button(label="Export Report",data=reports_csv,file_name='Report.csv',mime='text/csv')
