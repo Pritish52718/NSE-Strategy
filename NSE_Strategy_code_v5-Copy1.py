@@ -165,7 +165,7 @@ if check_type=='NSE_stocks':
         if df1.empty:
             st.subheader('No data')
         else:
-            st.dataframe(dfx)
+            st.dataframe(dfx.round(2))
          
 
     else:
