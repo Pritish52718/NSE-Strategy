@@ -160,12 +160,12 @@ if check_type=='NSE_stocks':
         df1=df1.sort_values("TIMESTAMP",ascending=False).reset_index(drop=True)
         #df1.drop("INSTRUMENT", axis=1, inplace=True)
         df1['TIMESTAMP'] = pd.to_datetime(df1['TIMESTAMP']).dt.date
-        dfx=df1.style.highlight_max(axis=0, props='background-color:lightgreen', subset=['HIGH']).highlight_min(axis=0, color="pink",subset=['LOW'])
+        dfx=df1.round(2).style.highlight_max(axis=0, props='background-color:lightgreen', subset=['HIGH']).highlight_min(axis=0, color="pink",subset=['LOW'])
         
         if df1.empty:
             st.subheader('No data')
         else:
-            st.dataframe(dfx.round(2))
+            st.dataframe(dfx)
          
 
     else:
